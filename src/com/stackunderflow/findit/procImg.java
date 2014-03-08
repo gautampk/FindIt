@@ -21,9 +21,9 @@ public class procImg extends ContextThemeWrapper {
 		dir.setData(Uri.parse("google.navigation:q="+lat+", "+lng));
 		startActivity(dir);
 	}
-
 	
-	public Location exif2Loc(String flNm) {
+
+	private Location exif2Loc(String flNm) {
         String sLat = "", sLatR = "", sLon = "", sLonR = "";
         try {
         ExifInterface ef = new ExifInterface(flNm);
@@ -47,7 +47,7 @@ public class procImg extends ContextThemeWrapper {
         return loc;
     }
 		
-	double dmsToDbl(String sDMS){
+	private dmsToDbl(String sDMS){
 		double dRV = 999.0;
 		try {
 			String[] DMSs = sDMS.split(",", 3);
