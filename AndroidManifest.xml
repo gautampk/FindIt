@@ -40,7 +40,7 @@
             </intent-filter>
             <meta-data
                     android:name="com.google.android.glass.VoiceTrigger"
-                    android:resource="@xml/rememberVox" />
+                    android:resource="@xml/remember_vox" />
 
         </activity>
 
@@ -52,7 +52,7 @@
             </intent-filter>
             <meta-data
                     android:name="com.google.android.glass.VoiceTrigger"
-                    android:resource="@xml/remindVox" />
+                    android:resource="@xml/remind_vox" />
 
         </activity>
     </application>
