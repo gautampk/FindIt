@@ -1,4 +1,4 @@
-package src.com.stackunderflow.findit;
+package com.stackunderflow.findit;
 import android.content.Context;
 import android.location.Criteria;
 import android.location.GpsStatus;

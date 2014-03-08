@@ -1,12 +1,11 @@
-package src.com.stackunderflow.findit;
+package com.stackunderflow.findit;
 
 import android.app.Activity;
-import android.os.Bundle;import android.net.Uri;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
 import com.google.android.glass.app.Card;
 import com.google.android.glass.widget.CardScrollAdapter;
@@ -75,11 +74,11 @@ public class Remind extends Activity {
             return mCards.get(position).toView();
         }
 
-        public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+        /*public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
             String filename = "test0";
             String filepath = Environment.getExternalStorageDirectory().getPath()+"/Pictures/FindIt/"+filename+".jpg";
             startActivity(procImg.launchNav(filepath));
-        }
+        }*/
     }
     //A Change.
 }
