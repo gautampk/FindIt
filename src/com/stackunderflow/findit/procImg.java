@@ -1,8 +1,13 @@
 package com.stackunderflow.findit;
 
 import java.io.IOException;
+
+import android.app.Activity;
+import android.content.Intent;
 import android.location.Location;
 import android.media.ExifInterface;
+import android.net.Uri;
+import android.os.Environment;
 
 public class procImg {
 
