@@ -59,6 +59,8 @@
                     android:resource="@xml/remind_vox" />
 
         </activity>
+        <activity android:name="com.stackunderflow.findit.Memory">
+        </activity>
     </application>
 
 </manifest>
