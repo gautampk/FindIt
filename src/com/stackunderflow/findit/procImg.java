@@ -11,8 +11,6 @@ import android.os.Environment;
 public class procImg{
 
     public void storeLocation(String filename) {
-    	//int result = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
-       
 
         LocationHandler lh = new LocationHandler();
         LocationHandler.init(this, currentloc);
@@ -25,7 +23,7 @@ public class procImg{
 	        }
         };
         		
-        locToExif(filename, (Location)currentloc);
+        locToExif(filename, currentloc);
     }
     
     public static Intent launchNav(String filename) {
