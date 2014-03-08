@@ -1,6 +1,8 @@
 FindIt
 =======
 
+Developed for IC Hack '14: hackathon.io/findit
+
 FindIt is a Glass app allowing the user to store* and retrieve images with
 location data, to remind you where you left items, and give directions to them.
 
