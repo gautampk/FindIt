@@ -82,5 +82,4 @@ public class Find extends Activity {
             startActivity(procImg.launchNav(filepath));
         }*/
     }
-    //A Change.
 }
