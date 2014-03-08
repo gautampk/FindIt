@@ -13,6 +13,7 @@ import com.google.android.glass.widget.CardScrollView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.File;
 
 public class Find extends Activity {
     private List<Card> mCards;
@@ -21,7 +22,7 @@ public class Find extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        startActivity(procImg.launchNav("test0"));
+        //startActivity(procImg.launchNav("test0"));
         createCards();
 
         mCardScrollView = new CardScrollView(this);
@@ -38,8 +39,9 @@ public class Find extends Activity {
 
         String filename = "test0";
         String filepath = Environment.getExternalStorageDirectory().getPath()+"/Pictures/FindIt/"+filename+".jpg";
-        //File file = new File(filepath);
-        Uri uri = Uri.parse(filepath);
+
+        File file = new File(filepath);
+        Uri uri = Uri.fromFile(file);
 
         card = new Card(this);
         card.setImageLayout(Card.ImageLayout.FULL);
