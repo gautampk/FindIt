@@ -1,39 +1,22 @@
 package com.stackunderflow.findit;
 
 import java.io.IOException;
-
-import android.content.Intent;
 import android.location.Location;
-import android.location.LocationProvider;
 import android.media.ExifInterface;
-import android.net.Uri;
-import android.os.Environment;
-import android.view.ContextThemeWrapper;
 
-public class procImg extends ContextThemeWrapper {
+public class procImg {
 
-	public void launchNav(String filename) {
-        final String filepath = Environment.getExternalStorageDirectory().getPath()+"/FindIt/"+filename+".jpg";
-		
-		Location imgLoc = exif2Loc(filepath);
-		String lat = ""+imgLoc.getLatitude();
-		String lng = ""+imgLoc.getLongitude();
-		Intent dir = new Intent(Intent.ACTION_VIEW);
-		dir.setData(Uri.parse("google.navigation:q="+lat+", "+lng));
-		startActivity(dir);
-	}
+    /*public void storeLocation(String filename) {
+
+        LocationProvider lp = getInstance();
+
+        Location currentloc = null;
+
+
+        locToExif(filename, currentloc);
+    }*/
 	
-	public void storeLocation(String filename) {
-		
-		LocationProvider lp = getInstance();
-
-		Location currentloc = null;
-		
-		
-		locToExif(filename, currentloc);
-	}
-	
-	private void locToExif(String filename, Location loc) {
+	public void locToExif(String filename, Location loc) {
 		try {
 			ExifInterface ef = new ExifInterface(filename);
 		    ef.setAttribute(ExifInterface.TAG_GPS_LATITUDE, dec2DMS(loc.getLatitude()));
@@ -60,7 +43,7 @@ public class procImg extends ContextThemeWrapper {
 		return sOut;
 	}
 
-	private Location exif2Loc(String flNm) {
+	public Location exif2Loc(String flNm) {
         String sLat = "", sLatR = "", sLon = "", sLonR = "";
         try {
         ExifInterface ef = new ExifInterface(flNm);
