@@ -34,6 +34,8 @@ import android.view.MenuItem;
  */
 public class Remember extends Activity {
 
+
+
     private CompassService.CompassBinder mCompassService;
     private boolean mResumed;
 

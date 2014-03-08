@@ -8,6 +8,7 @@ import android.location.Location;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 
 public class FindActivity extends Activity {
 
@@ -16,8 +17,8 @@ public class FindActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_find);
 		
-		Intent find = getIntent();
-		final String filename = find.getStringExtra(Remember.IMAGE_FILENAME);
+		//Intent find = getIntent();
+        final String filename = Environment.getExternalStorageDirectory().getPath()+"/DCIM/Camera/test0.jpg";
 		
 		Location imgLoc = exif2Loc(filename);
 		String lat = ""+imgLoc.getLatitude();
@@ -64,6 +65,8 @@ public class FindActivity extends Activity {
 		    dRV += ((new Double(s[0])/new Double(s[1]))/3600);
 		    } catch (Exception e) {
 		}
+
+        return dRV;
 	}
 
 }
