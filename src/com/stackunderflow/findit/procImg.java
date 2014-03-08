@@ -2,6 +2,7 @@ package com.stackunderflow.findit;
 
 import java.io.IOException;
 
+import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.media.ExifInterface;
@@ -9,22 +10,16 @@ import android.net.Uri;
 import android.os.Environment;
 
 public class procImg{
+	
+    public void storeLocation(String filename, Context context) {
 
-    /*public void storeLocation(String filename) {
-
-        LocationHandler lh = new LocationHandler();
-        LocationHandler.init(this, currentloc);
-    	
-        LocationResult currentloc = new LocationResult(){
-        	@Override
-        	public void gotLocation(final Location location){
-        		location.getLongitude();
-        		location.getLatitude();
-	        }
-        };
-        		
-        locToExif(filename, currentloc);
-    }*/
+    	Location currentloc;
+    	if (LocationGrabber.canGetLocation()){
+    		currentloc.setLatitude(LocationGrabber.latitude);
+    		currentloc.setLongitude(LocationGrabber.longitude);
+    		locToExif(filename, currentloc);
+    	}
+    }
     
     public static Intent launchNav(String filename) {
         String filepath = Environment.getExternalStorageDirectory().getPath()+"/DCIM/Camera/"+filename+".jpg";
