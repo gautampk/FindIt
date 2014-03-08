@@ -17,6 +17,7 @@ public class Remind extends Activity {
     }
 
     private void launchNav(String filename){
-        procImg.launchNav(filename);
+        procImg processor = new procImg();
+        processor.launchNav(filename);
     }
 }
