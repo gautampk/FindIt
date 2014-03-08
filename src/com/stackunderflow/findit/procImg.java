@@ -1,4 +1,4 @@
-package com.stackunderflow.findit;
+package src.com.stackunderflow.findit;
 
 import java.io.IOException;
 
@@ -13,9 +13,19 @@ public class procImg{
     public void storeLocation(String filename) {
     	//int result = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
        
-        Location currentloc = null;
+
+        LocationHandler lh = new LocationHandler();
+        LocationHandler.init(this, currentloc);
+    	
+        LocationResult currentloc = new LocationResult(){
+        	@Override
+        	public void gotLocation(final Location location){
+        		location.getLongitude();
+        		location.getLatitude();
+	        }
+        };
         		
-        locToExif(filename, currentloc);
+        locToExif(filename, (Location)currentloc);
     }
     
     public static Intent launchNav(String filename) {

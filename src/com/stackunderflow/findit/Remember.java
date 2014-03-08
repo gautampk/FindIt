@@ -1,4 +1,4 @@
-package com.stackunderflow.findit;
+package src.com.stackunderflow.findit;
 
 import android.app.Activity;
 import android.content.ComponentName;
