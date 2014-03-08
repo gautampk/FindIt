@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import android.content.Intent;
 import android.location.Location;
+import android.location.LocationProvider;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
@@ -22,6 +23,42 @@ public class procImg extends ContextThemeWrapper {
 		startActivity(dir);
 	}
 	
+	public void storeLocation(String filename) {
+		
+		LocationProvider lp = getInstance();
+
+		Location currentloc = null;
+		
+		
+		locToExif(filename, currentloc);
+	}
+	
+	private void locToExif(String filename, Location loc) {
+		try {
+			ExifInterface ef = new ExifInterface(filename);
+		    ef.setAttribute(ExifInterface.TAG_GPS_LATITUDE, dec2DMS(loc.getLatitude()));
+		    ef.setAttribute(ExifInterface.TAG_GPS_LONGITUDE,dec2DMS(loc.getLongitude()));
+		    if (loc.getLatitude() > 0) 
+		    	ef.setAttribute(ExifInterface.TAG_GPS_LATITUDE_REF, "N"); 
+		    else              
+		    	ef.setAttribute(ExifInterface.TAG_GPS_LATITUDE_REF, "S");
+		    if (loc.getLongitude()>0) 
+		    	ef.setAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF, "E");    
+		    else             
+		    	ef.setAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF, "W");
+		    ef.saveAttributes();
+		} catch (IOException e) {}         
+	}
+		
+	private String dec2DMS(double coord) {
+		coord = coord > 0 ? coord : -coord;						// -105.9876543 -> 105.9876543
+		String sOut = Integer.toString((int)coord) + "/1,";		// 105/1,
+		coord = (coord % 1) * 60;         						// .987654321 * 60 = 59.259258
+		sOut = sOut + Integer.toString((int)coord) + "/1,";		// 105/1,59/1,
+		coord = (coord % 1) * 60000;             				// .259258 * 60000 = 15555
+		sOut = sOut + Integer.toString((int)coord) + "/1000";	// 105/1,59/1,15555/1000
+		return sOut;
+	}
 
 	private Location exif2Loc(String flNm) {
         String sLat = "", sLatR = "", sLon = "", sLonR = "";
@@ -47,7 +84,7 @@ public class procImg extends ContextThemeWrapper {
         return loc;
     }
 		
-	private dmsToDbl(String sDMS){
+	private Double dmsToDbl(String sDMS){
 		double dRV = 999.0;
 		try {
 			String[] DMSs = sDMS.split(",", 3);
