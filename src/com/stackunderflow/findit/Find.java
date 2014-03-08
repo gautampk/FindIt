@@ -14,7 +14,7 @@ import com.google.android.glass.widget.CardScrollView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Remind extends Activity {
+public class Find extends Activity {
     private List<Card> mCards;
     private CardScrollView mCardScrollView;
 

@@ -20,6 +20,6 @@
     <!-- Launch-related strings. -->
     <string name="app_name">FindIt</string>
     <string name="rememberTrig">remember</string>
-    <string name="remindTrig">remind me</string>
+    <string name="findTrig">find</string>
 
 </resources>

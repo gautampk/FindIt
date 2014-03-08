@@ -33,8 +33,8 @@
             android:name="com.google.android.glass"
             android:required="true" />
             
-        <meta-data android:name="com.google.android.gms.version"
-           android:value="@integer/google_play_services_version" />
+        <!-- <meta-data android:name="com.google.android.gms.version"
+           android:value="@integer/google_play_services_version" />-->
 
         <!-- REMEMBER -->
         <activity android:name="com.stackunderflow.findit.Remember">
@@ -49,14 +49,14 @@
         </activity>
 
         <!-- REMIND -->
-        <activity android:name="com.stackunderflow.findit.Remind">
+        <activity android:name="com.stackunderflow.findit.Find">
 
             <intent-filter>
                 <action android:name="com.google.android.glass.action.VOICE_TRIGGER" />
             </intent-filter>
             <meta-data
                     android:name="com.google.android.glass.VoiceTrigger"
-                    android:resource="@xml/remind_vox" />
+                    android:resource="@xml/find_vox" />
 
         </activity>
     </application>

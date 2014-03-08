@@ -10,7 +10,7 @@ import android.os.Environment;
 
 public class procImg{
 
-    public void storeLocation(String filename) {
+    /*public void storeLocation(String filename) {
 
         LocationHandler lh = new LocationHandler();
         LocationHandler.init(this, currentloc);
@@ -24,7 +24,7 @@ public class procImg{
         };
         		
         locToExif(filename, currentloc);
-    }
+    }*/
     
     public static Intent launchNav(String filename) {
         String filepath = Environment.getExternalStorageDirectory().getPath()+"/DCIM/Camera/"+filename+".jpg";
