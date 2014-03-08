@@ -16,8 +16,6 @@
 
 package com.stackunderflow.findit;
 
-import com.stackunderflow.findit.util.MathUtils;
-
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -34,18 +32,11 @@ import android.view.MenuItem;
  */
 public class Remember extends Activity {
 
-
-
-    private CompassService.CompassBinder mCompassService;
     private boolean mResumed;
 
     private ServiceConnection mConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            if (service instanceof CompassService.CompassBinder) {
-                mCompassService = (CompassService.CompassBinder) service;
-                openOptionsMenu();
-            }
         }
 
         @Override
@@ -57,7 +48,6 @@ public class Remember extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bindService(new Intent(this, CompassService.class), mConnection, 0);
     }
 
     @Override
@@ -75,9 +65,6 @@ public class Remember extends Activity {
 
     @Override
     public void openOptionsMenu() {
-        if (mResumed && mCompassService != null) {
-            super.openOptionsMenu();
-        }
     }
 
     @Override
@@ -90,10 +77,8 @@ public class Remember extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.read_aloud:
-                mCompassService.readHeadingAloud();
                 return true;
             case R.id.stop:
-                stopService(new Intent(this, CompassService.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
