@@ -2,30 +2,39 @@ package com.stackunderflow.findit;
 
 import java.io.IOException;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
 
-public class procImg {
+public class procImg{
 
-    /*public void storeLocation(String filename) {
-
-        LocationProvider lp = getInstance();
-
+    public void storeLocation(String filename) {
+    	//int result = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+       
         Location currentloc = null;
-
-
+        		
         locToExif(filename, currentloc);
-    }*/
+    }
+    
+    public static Intent launchNav(String filename) {
+        String filepath = Environment.getExternalStorageDirectory().getPath()+"/DCIM/Camera/"+filename+".jpg";
+        procImg processor = new procImg();
+
+        Location imgLoc = exifToLoc(filepath);
+        String lat = ""+imgLoc.getLatitude();
+        String lng = ""+imgLoc.getLongitude();
+        Intent dir = new Intent(Intent.ACTION_VIEW);
+        dir.setData(Uri.parse("google.navigation:q=" + lat + ", " + lng));
+        return dir;
+    }
 	
-	public void locToExif(String filename, Location loc) {
+	private void locToExif(String filename, Location loc) {
 		try {
 			ExifInterface ef = new ExifInterface(filename);
-		    ef.setAttribute(ExifInterface.TAG_GPS_LATITUDE, dec2DMS(loc.getLatitude()));
-		    ef.setAttribute(ExifInterface.TAG_GPS_LONGITUDE,dec2DMS(loc.getLongitude()));
+		    ef.setAttribute(ExifInterface.TAG_GPS_LATITUDE, decToDMS(loc.getLatitude()));
+		    ef.setAttribute(ExifInterface.TAG_GPS_LONGITUDE,decToDMS(loc.getLongitude()));
 		    if (loc.getLatitude() > 0) 
 		    	ef.setAttribute(ExifInterface.TAG_GPS_LATITUDE_REF, "N"); 
 		    else              
@@ -38,7 +47,7 @@ public class procImg {
 		} catch (IOException e) {}         
 	}
 		
-	private String dec2DMS(double coord) {
+	private String decToDMS(double coord) {
 		coord = coord > 0 ? coord : -coord;						// -105.9876543 -> 105.9876543
 		String sOut = Integer.toString((int)coord) + "/1,";		// 105/1,
 		coord = (coord % 1) * 60;         						// .987654321 * 60 = 59.259258
@@ -48,7 +57,7 @@ public class procImg {
 		return sOut;
 	}
 
-	public Location exif2Loc(String flNm) {
+	private static Location exifToLoc(String flNm) {
         String sLat = "", sLatR = "", sLon = "", sLonR = "";
         try {
         ExifInterface ef = new ExifInterface(flNm);
@@ -72,7 +81,7 @@ public class procImg {
         return loc;
     }
 		
-	private Double dmsToDbl(String sDMS){
+	private static Double dmsToDbl(String sDMS){
 		double dRV = 999.0;
 		try {
 			String[] DMSs = sDMS.split(",", 3);
@@ -84,8 +93,6 @@ public class procImg {
 		    dRV += ((new Double(s[0])/new Double(s[1]))/3600);
 		    } catch (Exception e) {
 		}
-
         return dRV;
 	}
-
 }
