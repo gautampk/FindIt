@@ -16,13 +16,6 @@
 
 package com.stackunderflow.findit;
 
-import com.stackunderflow.findit.model.Landmarks;
-import com.stackunderflow.findit.model.Place;
-import com.stackunderflow.findit.util.MathUtils;
-import com.google.android.glass.timeline.LiveCard;
-import com.google.android.glass.timeline.LiveCard.PublishMode;
-import com.google.android.glass.timeline.TimelineManager;
-
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
@@ -33,8 +26,8 @@ import android.location.LocationManager;
 import android.os.Binder;
 import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
-
-import java.util.List;
+import com.stackunderflow.findit.model.Landmarks;
+import com.stackunderflow.findit.util.MathUtils;
 
 /**
  * The main application service that manages the lifetime of the compass live card and the objects
