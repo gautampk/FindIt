@@ -1,28 +1,23 @@
-Compass
+FindIt
 =======
 
-This sample inserts a live card to the left of the Glass clock that displays a
-compass. Tapping the live card presents a menu with two options:
+FindIt is a Glass app allowing the user to store* and retrieve images with
+location data, to remind you where you left items, and give directions to them.
 
-- Read aloud: read the compass's current heading using text-to-speech
-- Stop: remove the compass from the timeline
+*not yet implemented.
 
-The compass also contains a small list of landmarks that will appear on the
-screen when the user is within 10 km of those locations. See the
-`res/raw/landmarks.json` file to add your own.
+## Finding Stuff
 
-## Getting started
+To find something previously stored, simply say "Okay Glass, remind me." and
+choose the image of the thing you wanted to be reminded the location of.
 
-Check out our documentation to learn how to get started on
-https://developers.google.com/glass/develop/index
+## Storing Stuff
 
-## Running the sample on Glass
+Not yet implemented.
 
-You can use your IDE to compile and install the sample or use
-[`adb`](https://developer.android.com/tools/help/adb.html)
-on the command line:
+## Installing
 
-    $ adb install -r CompassSample.apk
+The FindIt .apk is in the /bin directory, ready to be pushed to Glass via adb.
 
-To start the sample, say "ok glass, show a compass" from the Glass clock
-screen or use the touch menu.
+$ adb push /bin/findit.apk /sdcard/findit.apk
+$ adb install /sdcard/findit.apk
