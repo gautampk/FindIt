@@ -27,6 +27,9 @@
     <string name="storefailhead">Woops! No location data.. :(</string>
     <string name="storefailfoot">Make sure location services enabled.</string>
 
+    <string name="createfailhead">Looks like it\'s the first time you\'ve run this!</string>
+    <string name="createfailfoot">Try getting FindIt to remember some stuff first.</string>
+
     <string name="GPSAlertDialogTitle">GPS Alert</string>
     <string name="GPSAlertDialogMessage">GPS Alert Message.</string>
     <string name="settings">Settings</string>

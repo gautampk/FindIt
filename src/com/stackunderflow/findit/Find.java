@@ -4,11 +4,12 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.content.Context;
+import android.content.Intent;
 
 import com.google.android.glass.app.Card;
 import com.google.android.glass.widget.CardScrollAdapter;
@@ -58,17 +59,27 @@ public class Find extends Activity {
         File file;
         Uri uri;
 
-        File folder = new File(filepath);
-        File[] listOfFiles = folder.listFiles();
+        try{
+            File folder = new File(filepath);
+            File[] listOfFiles = folder.listFiles();
 
-        for (int i = 0; i < listOfFiles.length; i++) {
-            file = new File(filepath+listOfFiles[i].getName());
-            uri = Uri.fromFile(file);
-            card = new Card(this);
-            card.setImageLayout(Card.ImageLayout.FULL);
-            card.addImage(uri);
-            card.setFootnote( listOfFiles[i].getName().replace(".jpg","") );
-            mCards.add(card);
+            for (int i = 0; i < listOfFiles.length; i++) {
+                file = new File(filepath+listOfFiles[i].getName());
+                uri = Uri.fromFile(file);
+                card = new Card(this);
+                card.setImageLayout(Card.ImageLayout.FULL);
+                card.addImage(uri);
+                card.setFootnote( listOfFiles[i].getName().replace(".jpg","") );
+                mCards.add(card);
+            }
+        }catch (NullPointerException e){
+            Card fail = new Card(Find.this);
+            fail.setText(R.string.createfailhead);
+            fail.setFootnote(R.string.createfailhead);
+            fail.setImageLayout(Card.ImageLayout.FULL);
+            fail.addImage(R.drawable.storefailbg);
+            View failView = fail.toView();
+            setContentView(failView);
         }
     }
 
