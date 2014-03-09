@@ -22,7 +22,7 @@ public class procImg{
     }
     
     public static Intent launchNav(String filename) {
-        String filepath = Environment.getExternalStorageDirectory()+"/Pictures/FindIt/"+filename+".jpg";
+        String filepath = Environment.getExternalStorageDirectory()+"/Pictures/FindIt/"+filename;
         procImg processor = new procImg();
 
         Location imgLoc = exifToLoc(filepath);
