@@ -22,7 +22,6 @@ public class Remember extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        //ArrayList<String> voiceResults = getIntent().getExtras().getStringArrayList(RecognizerIntent.EXTRA_RESULTS);
 
         Card fail = new Card(Remember.this);
         fail.setText("Tap to take a photo");
@@ -63,6 +62,8 @@ public class Remember extends Activity {
 
         if (pictureFile.exists()) {
             // The picture is ready; process it.
+            ArrayList<String> voiceResults = getIntent().getExtras().getStringArrayList(RecognizerIntent.EXTRA_RESULTS);
+            procImg.tags.put(voiceResults.get(0),picturePath.replace(Environment.getExternalStorageDirectory().getPath(),""));
         } else {
             // The file does not exist yet. Before starting the file observer, you
             // can update your UI to let the user know that the application is
