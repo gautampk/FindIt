@@ -13,7 +13,7 @@ public class procImg{
 	
     public void storeLocation(String filename, Context context) {
 
-    	Location currentloc;
+    	Location currentloc = null;
     	if (LocationGrabber.canGetLocation()){
     		currentloc.setLatitude(LocationGrabber.latitude);
     		currentloc.setLongitude(LocationGrabber.longitude);
