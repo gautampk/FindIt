@@ -25,19 +25,23 @@ public class procImg{
     		return true;
     	}
     	else{
+    		Card fail = new Card(context);
+        	fail.setText(R.string.storefailhead);
+        	fail.setFootnote(R.string.storefailfoot);
+        	fail.setImageLayout(Card.ImageLayout.FULL);
+        	fail.addImage(R.drawable.storefailbg);
+        	View failView = fail.toView();
     		return false;
     	}
     }
     
     public static Intent launchNav(String filename, Context context) {
-        String filepath = Environment.getExternalStorageDirectory()+"/Pictures/FindIt/"+filename;
-        procImg processor = new procImg();
-
-        Location imgLoc = exifToLoc(filepath);
-        String lat = ""+imgLoc.getLatitude();
-        String lng = ""+imgLoc.getLongitude();
-        Intent dir = new Intent(Intent.ACTION_VIEW);
         try{
+        	String filepath = Environment.getExternalStorageDirectory()+"/Pictures/FindIt/"+filename;
+            Location imgLoc = exifToLoc(filepath);
+            String lat = ""+imgLoc.getLatitude();
+            String lng = ""+imgLoc.getLongitude();
+            Intent dir = new Intent(Intent.ACTION_VIEW);
         	dir.setData(Uri.parse("google.navigation:q=" + lat + ", " + lng));
             return dir;
         } catch (NullPointerException e){
