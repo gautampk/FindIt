@@ -2,7 +2,6 @@ package com.stackunderflow.findit;
 
 import java.io.IOException;
 
-import android.R;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -23,7 +22,7 @@ public class procImg{
     }
     
     public static Intent launchNav(String filename) {
-        String filepath = Environment.getExternalStorageDirectory().getPath()+R.string.root+filename+".jpg";
+        String filepath = Environment.getExternalStorageDirectory()+"/Pictures/FindIt/"+filename+".jpg";
         procImg processor = new procImg();
 
         Location imgLoc = exifToLoc(filepath);
