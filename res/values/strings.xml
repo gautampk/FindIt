@@ -21,14 +21,25 @@
     <string name="app_name">FindIt</string>
     <string name="rememberTrig">remember</string>
     <string name="findTrig">find</string>
-    <string name="ImgRoot">/Pictures/FindIt/</string>
+    <string name="ImgRoot">/Pictures/FindIt/</string>String filepath = Environment.getExternalStorageDirectory()+"/Pictures/FindIt/"+filename;
+
+        Location imgLoc = exifToLoc(filepath);
+        String lat = ""+imgLoc.getLatitude();
+        String lng = ""+imgLoc.getLongitude();
+        Intent dir = new Intent(Intent.ACTION_VIEW);String filepath = Environment.getExternalStorageDirectory()+"/Pictures/FindIt/"+filename;
+
+        Location imgLoc = exifToLoc(filepath);
+        String lat = ""+imgLoc.getLatitude();
+        String lng = ""+imgLoc.getLongitude();
+        Intent dir = new Intent(Intent.ACTION_VIEW);String filepath = Environment.getExternalStorageDirectory()+"/Pictures/FindIt/"+filename;
+
+        Location imgLoc = exifToLoc(filepath);
+        String lat = ""+imgLoc.getLatitude();
+        String lng = ""+imgLoc.getLongitude();
+        Intent dir = new Intent(Intent.ACTION_VIEW);
     <string name="launchfailhead">Woops! No location data :(</string>
     <string name="launchfailfoot">Or you've been taking selfies on the moon again..</string>
-
-    <string name="GPSAlertDialogTitle">GPS Alert</string>
-    <string name="GPSAlertDialogMessage">GPS Alert Message</string>
-    <string name="settings">Setting</string>
-    <string name="cancel">Cancel</string>
-
+    <string name="storefailhead">Woops! No location data.. :(</string>
+    <string name="storefailfoot">Make sure location services enabled.</string>
 
 </resources>
