@@ -21,6 +21,9 @@
     <string name="app_name">FindIt</string>
     <string name="rememberTrig">remember</string>
     <string name="findTrig">find</string>
+    <string name="rememberPrompt"></string>
+    <string name="findPrompt">Say \'all\' for a list...</string>
+
     <string name="ImgRoot">/Pictures/FindIt/</string>
     <string name="launchfailhead">Woops! No location data :(</string>
     <string name="launchfailfoot">Or you\'ve been taking selfies on the moon again..</string>

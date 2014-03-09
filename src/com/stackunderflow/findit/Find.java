@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.speech.RecognizerIntent;
 
 import com.google.android.glass.app.Card;
 import com.google.android.glass.widget.CardScrollAdapter;
@@ -24,29 +25,35 @@ public class Find extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        createCards();
+        ArrayList<String> voiceResults = getIntent().getExtras().getStringArrayList(RecognizerIntent.EXTRA_RESULTS);
 
-        mCardScrollView = new CardScrollView(this);
-        mCardScrollView.setOnItemClickListener(new OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Card selectedCard = mCards.get(mCardScrollView.getSelectedItemPosition());
-                try{
-                    startActivity( procImg.launchNav(selectedCard.getFootnote()+".jpg" , Find.this) );
-                }catch (NullPointerException e){
-                    Card fail = new Card(Find.this);
-                    fail.setText(R.string.storefailhead);
-                    fail.setFootnote(R.string.storefailfoot);
-                    fail.setImageLayout(Card.ImageLayout.FULL);
-                    fail.addImage(R.drawable.storefailbg);
-                    View failView = fail.toView();
-                    setContentView(failView);
+        if(voiceResults.get(0) == "all" || voiceResults.get(0) == "all"){
+            createCards();
+
+            mCardScrollView = new CardScrollView(this);
+            mCardScrollView.setOnItemClickListener(new OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Card selectedCard = mCards.get(mCardScrollView.getSelectedItemPosition());
+                    try{
+                        startActivity( procImg.launchNav(selectedCard.getFootnote()+".jpg" , Find.this) );
+                    }catch (NullPointerException e){
+                        Card fail = new Card(Find.this);
+                        fail.setText(R.string.storefailhead);
+                        fail.setFootnote(R.string.storefailfoot);
+                        fail.setImageLayout(Card.ImageLayout.FULL);
+                        fail.addImage(R.drawable.storefailbg);
+                        View failView = fail.toView();
+                        setContentView(failView);
+                    }
                 }
-            }
-        });
-        ScrollAdapter adapter = new ScrollAdapter();
-        mCardScrollView.setAdapter(adapter);
-        mCardScrollView.activate();
-        setContentView(mCardScrollView);
+            });
+            ScrollAdapter adapter = new ScrollAdapter();
+            mCardScrollView.setAdapter(adapter);
+            mCardScrollView.activate();
+            setContentView(mCardScrollView);
+        }else{
+            throw new NullPointerException();
+        }
     }
 
     private void createCards() {
