@@ -22,4 +22,5 @@ choose what you want to go back to.
 The FindIt .apk is in the /bin directory, ready to be pushed to Glass via adb.
 
 $ adb push /bin/findit.apk /sdcard/findit.apk
+
 $ adb install /sdcard/findit.apk
