@@ -2,7 +2,6 @@ package com.stackunderflow.findit;
 
 import java.io.IOException;
 
-import com.stackunderflow.findit.R;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
