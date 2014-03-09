@@ -1,6 +1,8 @@
 package com.stackunderflow.findit;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +15,8 @@ import android.view.View;
 import com.google.android.glass.app.Card;
 
 public class procImg{
+
+    public static Map<String, String> tags = new HashMap<String, String>();
 	
     public boolean storeLocation(String filename, Context context) {
 
@@ -34,10 +38,9 @@ public class procImg{
     	}
     }
     
-    public static Intent launchNav(String filename, Context context) {
+    public static Intent launchNav(String filepath, Context context) {
         try{
-        	String filepath = Environment.getExternalStorageDirectory()+"/Pictures/FindIt/"+filename;
-            Location imgLoc = exifToLoc(filepath);
+            Location imgLoc = exifToLoc(Environment.getExternalStorageDirectory().getPath()+filepath);
             String lat = ""+imgLoc.getLatitude();
             String lng = ""+imgLoc.getLongitude();
             Intent dir = new Intent(Intent.ACTION_VIEW);

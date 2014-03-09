@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.File;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
@@ -35,6 +36,22 @@ public class Find extends Activity {
         super.onCreate(savedInstanceState);
         ArrayList<String> voiceResults = getIntent().getExtras().getStringArrayList(RecognizerIntent.EXTRA_RESULTS);
 
+        try{
+            File fXmlFile = new File(Environment.getExternalStorageDirectory().getPath()+"/Pictures/FindIt/tags.xml");
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(fXmlFile);
+
+            NodeList nList = doc.getElementsByTagName("tag");
+            for (int temp = 0; temp < nList.getLength(); temp++) {
+                Node nNode = nList.item(temp);
+                Element eElement = (Element) nNode;
+                procImg.tags.put(eElement.getAttribute("name"),eElement.getAttribute("photo"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         if(voiceResults.get(0).contentEquals("all")){
             createCards();
 
@@ -43,7 +60,7 @@ public class Find extends Activity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Card selectedCard = mCards.get(mCardScrollView.getSelectedItemPosition());
                     try{
-                        startActivity( procImg.launchNav(selectedCard.getFootnote()+".jpg" , Find.this) );
+                        startActivity( procImg.launchNav("/Pictures/FindIt/"+selectedCard.getFootnote()+".jpg", Find.this) );
                     }catch (NullPointerException e){
                         Card fail = new Card(Find.this);
                         fail.setText(R.string.storefailhead);
@@ -59,27 +76,9 @@ public class Find extends Activity {
             mCardScrollView.setAdapter(adapter);
             mCardScrollView.activate();
             setContentView(mCardScrollView);
-        }else{
-            Map<String, String> tags = new HashMap<String, String>();
-
+        }else if( !(voiceResults.get(0).contentEquals("all")) && voiceResults != null ){
             try{
-                File fXmlFile = new File(Environment.getExternalStorageDirectory().getPath()+"/Pictures/FindIt/tags.xml");
-                DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-                DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-                Document doc = dBuilder.parse(fXmlFile);
-
-                NodeList nList = doc.getElementsByTagName("tag");
-                for (int temp = 0; temp < nList.getLength(); temp++) {
-                    Node nNode = nList.item(temp);
-                    Element eElement = (Element) nNode;
-                    tags.put(eElement.getAttribute("name"),eElement.getAttribute("photo"));
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            try{
-                startActivity( procImg.launchNav(tags.get( voiceResults.get(0) ) , Find.this) );
+                startActivity( procImg.launchNav(procImg.tags.get( voiceResults.get(0) ) , Find.this) );
             }catch (NullPointerException e){
                 Card fail = new Card(Find.this);
                 fail.setText(R.string.storefailhead);
@@ -89,6 +88,30 @@ public class Find extends Activity {
                 View failView = fail.toView();
                 setContentView(failView);
             }
+        }else{
+            createCards();
+
+            mCardScrollView = new CardScrollView(this);
+            mCardScrollView.setOnItemClickListener(new OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Card selectedCard = mCards.get(mCardScrollView.getSelectedItemPosition());
+                    try{
+                        startActivity( procImg.launchNav("/Pictures/FindIt/"+selectedCard.getFootnote()+".jpg", Find.this) );
+                    }catch (NullPointerException e){
+                        Card fail = new Card(Find.this);
+                        fail.setText(R.string.storefailhead);
+                        fail.setFootnote(R.string.storefailfoot);
+                        fail.setImageLayout(Card.ImageLayout.FULL);
+                        fail.addImage(R.drawable.storefailbg);
+                        View failView = fail.toView();
+                        setContentView(failView);
+                    }
+                }
+            });
+            ScrollAdapter adapter = new ScrollAdapter();
+            mCardScrollView.setAdapter(adapter);
+            mCardScrollView.activate();
+            setContentView(mCardScrollView);
         }
     }
 
@@ -96,36 +119,21 @@ public class Find extends Activity {
         mCards = new ArrayList<Card>();
 
         Card card;
-        String filepath = Environment.getExternalStorageDirectory().getPath()+"/Pictures/FindIt/";
+        String filepath = Environment.getExternalStorageDirectory().getPath();
         File file;
         Uri uri;
 
-        try{
-            File folder = new File(filepath);
-            File[] listOfFiles = folder.listFiles();
-
-            for (int i = 0; i < listOfFiles.length; i++) {
-                if( !(listOfFiles[i].getName().contentEquals("tags.xml")) ){
-                    file = new File(filepath+listOfFiles[i].getName());
-                    uri = Uri.fromFile(file);
-                    card = new Card(this);
-                    card.setImageLayout(Card.ImageLayout.FULL);
-                    card.addImage(uri);
-                    card.setFootnote( listOfFiles[i].getName().replace(".jpg","") );
-                    mCards.add(card);
-                    continue;
-                }else{
-                    continue;
-                }
-            }
-        }catch (NullPointerException e){
-            Card fail = new Card(Find.this);
-            fail.setText(R.string.createfailhead);
-            fail.setFootnote(R.string.createfailhead);
-            fail.setImageLayout(Card.ImageLayout.FULL);
-            fail.addImage(R.drawable.storefailbg);
-            View failView = fail.toView();
-            setContentView(failView);
+        Iterator it = procImg.tags.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pairs = (Map.Entry)it.next();
+            file = new File(filepath + pairs.getValue());
+            uri = Uri.fromFile(file);
+            card = new Card(this);
+            card.setImageLayout(Card.ImageLayout.FULL);
+            card.addImage(uri);
+            card.setFootnote( file.getName().replace(".jpg","") );
+            mCards.add(card);
+            continue;
         }
     }
 

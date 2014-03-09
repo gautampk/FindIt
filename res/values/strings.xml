@@ -21,7 +21,7 @@
     <string name="app_name">FindIt</string>
     <string name="rememberTrig">remember</string>
     <string name="findTrig">find</string>
-    <string name="rememberPrompt"></string>
+    <string name="rememberPrompt">Enter a tag to remember this by...</string>
     <string name="findPrompt">Say \'all\' for a list...</string>
 
     <string name="ImgRoot">/Pictures/FindIt/</string>
