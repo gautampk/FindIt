@@ -25,7 +25,7 @@ public class Remember extends Activity {
         //ArrayList<String> voiceResults = getIntent().getExtras().getStringArrayList(RecognizerIntent.EXTRA_RESULTS);
 
         Card fail = new Card(Remember.this);
-        fail.setText("Swipe to take a photo");
+        fail.setText("Tap to take a photo");
         fail.setImageLayout(Card.ImageLayout.FULL);
         View failView = fail.toView();
         setContentView(failView);
@@ -33,8 +33,12 @@ public class Remember extends Activity {
 
     @Override
     public boolean onKeyDown(int keycode, KeyEvent event){
-        takePicture();
-        return true;
+        if(keycode == KeyEvent.KEYCODE_DPAD_CENTER){
+            takePicture();
+            return true;
+        }else{
+            return false;
+        }
     }
 
     private static final int TAKE_PICTURE_REQUEST = 1;
