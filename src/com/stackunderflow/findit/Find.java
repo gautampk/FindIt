@@ -43,32 +43,22 @@ public class Find extends Activity {
         mCards = new ArrayList<Card>();
 
         Card card;
-        String filename;
-        String filepath;
+        String filepath = Environment.getExternalStorageDirectory().getPath()+"/Pictures/FindIt/";
         File file;
         Uri uri;
 
+        File folder = new File(filepath);
+        File[] listOfFiles = folder.listFiles();
 
-
-        filename = "test0r";
-        filepath = Environment.getExternalStorageDirectory().getPath()+"/Pictures/FindIt/"+filename+".jpg";
-        file = new File(filepath);
-        uri = Uri.fromFile(file);
-        card = new Card(this);
-        card.setImageLayout(Card.ImageLayout.FULL);
-        card.addImage(uri);
-        card.setFootnote(filename);
-        mCards.add(card);
-
-        filename = "test1r";
-        filepath = Environment.getExternalStorageDirectory().getPath()+"/Pictures/FindIt/"+filename+".jpg";
-        file = new File(filepath);
-        uri = Uri.fromFile(file);
-        card = new Card(this);
-        card.setImageLayout(Card.ImageLayout.FULL);
-        card.addImage(uri);
-        card.setFootnote(filename);
-        mCards.add(card);
+        for (int i = 0; i < listOfFiles.length; i++) {
+            file = new File(filepath+listOfFiles[i].getName());
+            uri = Uri.fromFile(file);
+            card = new Card(this);
+            card.setImageLayout(Card.ImageLayout.FULL);
+            card.addImage(uri);
+            card.setFootnote(listOfFiles[i].getName());
+            mCards.add(card);
+        }
     }
 
     private class ScrollAdapter extends CardScrollAdapter {
