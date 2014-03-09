@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.google.android.glass.app.Card;
 import com.google.android.glass.widget.CardScrollAdapter;
@@ -22,11 +24,16 @@ public class Find extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //startActivity(procImg.launchNav("test0"));
         createCards();
 
         mCardScrollView = new CardScrollView(this);
-        ExampleCardScrollAdapter adapter = new ExampleCardScrollAdapter();
+        mCardScrollView.setOnItemClickListener(new OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Card selectedCard = mCards.get(mCardScrollView.getSelectedItemPosition());
+                startActivity( procImg.launchNav( selectedCard.getFootnote() ) );
+            }
+        });
+        ScrollAdapter adapter = new ScrollAdapter();
         mCardScrollView.setAdapter(adapter);
         mCardScrollView.activate();
         setContentView(mCardScrollView);
@@ -36,20 +43,35 @@ public class Find extends Activity {
         mCards = new ArrayList<Card>();
 
         Card card;
+        String filename;
+        String filepath;
+        File file;
+        Uri uri;
 
-        String filename = "test0";
-        String filepath = Environment.getExternalStorageDirectory().getPath()+"/Pictures/FindIt/"+filename+".jpg";
 
-        File file = new File(filepath);
-        Uri uri = Uri.fromFile(file);
 
+        filename = "test0r";
+        filepath = Environment.getExternalStorageDirectory().getPath()+"/Pictures/FindIt/"+filename+".jpg";
+        file = new File(filepath);
+        uri = Uri.fromFile(file);
         card = new Card(this);
         card.setImageLayout(Card.ImageLayout.FULL);
         card.addImage(uri);
+        card.setFootnote(filename);
+        mCards.add(card);
+
+        filename = "test1r";
+        filepath = Environment.getExternalStorageDirectory().getPath()+"/Pictures/FindIt/"+filename+".jpg";
+        file = new File(filepath);
+        uri = Uri.fromFile(file);
+        card = new Card(this);
+        card.setImageLayout(Card.ImageLayout.FULL);
+        card.addImage(uri);
+        card.setFootnote(filename);
         mCards.add(card);
     }
 
-    private class ExampleCardScrollAdapter extends CardScrollAdapter /*implements OnItemClickListener*/ {
+    private class ScrollAdapter extends CardScrollAdapter {
 
         @Override
         public int findIdPosition(Object id) {
@@ -75,11 +97,5 @@ public class Find extends Activity {
         public View getView(int position, View convertView, ViewGroup parent) {
             return mCards.get(position).toView();
         }
-
-        /*public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-            String filename = "test0";
-            String filepath = Environment.getExternalStorageDirectory().getPath()+"/Pictures/FindIt/"+filename+".jpg";
-            startActivity(procImg.launchNav(filepath));
-        }*/
     }
 }
