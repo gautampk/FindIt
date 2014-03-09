@@ -30,7 +30,7 @@ public class Find extends Activity {
         mCardScrollView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Card selectedCard = mCards.get(mCardScrollView.getSelectedItemPosition());
-                startActivity( procImg.launchNav( selectedCard.getFootnote() ) );
+                startActivity( procImg.launchNav(selectedCard.getFootnote()+".jpg" , this) );
             }
         });
         ScrollAdapter adapter = new ScrollAdapter();
@@ -56,7 +56,7 @@ public class Find extends Activity {
             card = new Card(this);
             card.setImageLayout(Card.ImageLayout.FULL);
             card.addImage(uri);
-            card.setFootnote(listOfFiles[i].getName());
+            card.setFootnote( listOfFiles[i].getName().replace(".jpg","") );
             mCards.add(card);
         }
     }
