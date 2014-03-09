@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.content.Context;
 
 import com.google.android.glass.app.Card;
 import com.google.android.glass.widget.CardScrollAdapter;
@@ -30,7 +31,17 @@ public class Find extends Activity {
         mCardScrollView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Card selectedCard = mCards.get(mCardScrollView.getSelectedItemPosition());
-                startActivity( procImg.launchNav(selectedCard.getFootnote()+".jpg" , Find.this) );
+                try{
+                    startActivity( procImg.launchNav(selectedCard.getFootnote()+".jpg" , Find.this) );
+                }catch (NullPointerException e){
+                    Card fail = new Card(Find.this);
+                    fail.setText(R.string.storefailhead);
+                    fail.setFootnote(R.string.storefailfoot);
+                    fail.setImageLayout(Card.ImageLayout.FULL);
+                    fail.addImage(R.drawable.storefailbg);
+                    View failView = fail.toView();
+                    setContentView(failView);
+                }
             }
         });
         ScrollAdapter adapter = new ScrollAdapter();
