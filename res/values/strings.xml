@@ -21,5 +21,6 @@
     <string name="app_name">FindIt</string>
     <string name="rememberTrig">remember</string>
     <string name="findTrig">find</string>
+    <string name="ImgRoot">/Pictures/FindIt/</string>
 
 </resources>
