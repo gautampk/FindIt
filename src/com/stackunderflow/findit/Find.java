@@ -17,6 +17,15 @@ import com.google.android.glass.widget.CardScrollView;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
+import java.io.File;
 
 public class Find extends Activity {
     private List<Card> mCards;
@@ -27,7 +36,7 @@ public class Find extends Activity {
         super.onCreate(savedInstanceState);
         ArrayList<String> voiceResults = getIntent().getExtras().getStringArrayList(RecognizerIntent.EXTRA_RESULTS);
 
-        if(voiceResults.get(0) == "all" || voiceResults.get(0) == "all"){
+        if(voiceResults.get(0).contentEquals("all")){
             createCards();
 
             mCardScrollView = new CardScrollView(this);
@@ -52,7 +61,35 @@ public class Find extends Activity {
             mCardScrollView.activate();
             setContentView(mCardScrollView);
         }else{
-            throw new NullPointerException();
+            Map<String, String> tags = new HashMap<String, String>();
+
+            try{
+                File fXmlFile = new File(Environment.getExternalStorageDirectory().getPath()+"/Pictures/FindIt/tags.xml");
+                DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+                Document doc = dBuilder.parse(fXmlFile);
+
+                NodeList nList = doc.getElementsByTagName("tag");
+                for (int temp = 0; temp < nList.getLength(); temp++) {
+                    Node nNode = nList.item(temp);
+                    Element eElement = (Element) nNode;
+                    tags.put(eElement.getAttribute("name"),eElement.getAttribute("photo"));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try{
+                startActivity( procImg.launchNav(tags.get( voiceResults.get(0) ) , Find.this) );
+            }catch (NullPointerException e){
+                Card fail = new Card(Find.this);
+                fail.setText(R.string.storefailhead);
+                fail.setFootnote(R.string.storefailfoot);
+                fail.setImageLayout(Card.ImageLayout.FULL);
+                fail.addImage(R.drawable.storefailbg);
+                View failView = fail.toView();
+                setContentView(failView);
+            }
         }
     }
 
@@ -69,13 +106,18 @@ public class Find extends Activity {
             File[] listOfFiles = folder.listFiles();
 
             for (int i = 0; i < listOfFiles.length; i++) {
-                file = new File(filepath+listOfFiles[i].getName());
-                uri = Uri.fromFile(file);
-                card = new Card(this);
-                card.setImageLayout(Card.ImageLayout.FULL);
-                card.addImage(uri);
-                card.setFootnote( listOfFiles[i].getName().replace(".jpg","") );
-                mCards.add(card);
+                if( !(listOfFiles[i].getName().contentEquals("tags.xml")) ){
+                    file = new File(filepath+listOfFiles[i].getName());
+                    uri = Uri.fromFile(file);
+                    card = new Card(this);
+                    card.setImageLayout(Card.ImageLayout.FULL);
+                    card.addImage(uri);
+                    card.setFootnote( listOfFiles[i].getName().replace(".jpg","") );
+                    mCards.add(card);
+                    continue;
+                }else{
+                    continue;
+                }
             }
         }catch (NullPointerException e){
             Card fail = new Card(Find.this);
