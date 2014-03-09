@@ -2,26 +2,34 @@ package com.stackunderflow.findit;
 
 import java.io.IOException;
 
+import com.stackunderflow.findit.R;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
+import android.view.View;
+
+import com.google.android.glass.app.Card;
 
 public class procImg{
 	
-    public void storeLocation(String filename, Context context) {
+    public boolean storeLocation(String filename, Context context) {
 
     	Location currentloc = null;
     	if (LocationGrabber.canGetLocation()){
     		currentloc.setLatitude(LocationGrabber.latitude);
     		currentloc.setLongitude(LocationGrabber.longitude);
     		locToExif(filename, currentloc);
+    		return true;
+    	}
+    	else{
+    		return false;
     	}
     }
     
-    public static Intent launchNav(String filename) {
+    public static Intent launchNav(String filename, Context context) {
         String filepath = Environment.getExternalStorageDirectory()+"/Pictures/FindIt/"+filename;
         procImg processor = new procImg();
 
@@ -29,8 +37,18 @@ public class procImg{
         String lat = ""+imgLoc.getLatitude();
         String lng = ""+imgLoc.getLongitude();
         Intent dir = new Intent(Intent.ACTION_VIEW);
-        dir.setData(Uri.parse("google.navigation:q=" + lat + ", " + lng));
-        return dir;
+        try{
+        	dir.setData(Uri.parse("google.navigation:q=" + lat + ", " + lng));
+            return dir;
+        } catch (NullPointerException e){
+        	Card fail = new Card(context);
+        	fail.setText(R.string.launchfailhead);
+        	fail.setFootnote(R.string.launchfailfoot);
+        	fail.setImageLayout(Card.ImageLayout.FULL);
+        	fail.addImage(R.drawable.launchfailbg);
+        	View failView = fail.toView();
+        	return null;
+        }
     }
 	
 	private void locToExif(String filename, Location loc) {
