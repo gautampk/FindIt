@@ -3,19 +3,19 @@ FindIt
 
 Developed for IC Hack '14: hackathon.io/findit
 
-FindIt is a Glass app allowing the user to store* and retrieve images with
-location data, to remind you where you left items, and give directions to them.
-
-*not yet implemented.
-
-## Finding Stuff
-
-To find something previously stored, simply say "Okay Glass, remind me." and
-choose the image of the thing you wanted to be reminded the location of.
+FindIt is an app for Google Glass that acts as your virtual memory. You can
+get FindIt to remember anything for you, simply by taking a photo. Later, select
+the photo, and FindIt will tell you how to get back.
 
 ## Storing Stuff
 
-Not yet implemented.
+Just say "Okay Glass, remember." FindIt open the camera for you; simply take a photo and FindIt
+will tag it with all the info you need to be able to find it later.
+
+## Finding Stuff
+
+To find something previously stored, simply say "Okay Glass, find." and
+choose what you want to go back to.
 
 ## Installing
 
