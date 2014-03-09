@@ -23,9 +23,14 @@
     <uses-sdk
         android:minSdkVersion="15"
         android:targetSdkVersion="15" />
-    <uses-permission android:name="ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="INTERNET"/>
-    <uses-permission android:name="WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="INTERNET" />
+    <uses-permission android:name="WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="CAMERA" />
+    
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
         android:allowBackup="true"
@@ -36,27 +41,32 @@
             android:required="true" />
 
         <!-- REMEMBER -->
-        <activity android:name="com.stackunderflow.findit.Remember">
-
+        <activity android:name="com.stackunderflow.findit.Remember" >
             <intent-filter>
                 <action android:name="com.google.android.glass.action.VOICE_TRIGGER" />
             </intent-filter>
-            <meta-data
-                    android:name="com.google.android.glass.VoiceTrigger"
-                    android:resource="@xml/remember_vox" />
 
+            <meta-data
+                android:name="com.google.android.glass.VoiceTrigger"
+                android:resource="@xml/remember_vox" />
         </activity>
 
         <!-- REMIND -->
-        <activity android:name="com.stackunderflow.findit.Find">
-
+        <activity android:name="com.stackunderflow.findit.Find" >
             <intent-filter>
                 <action android:name="com.google.android.glass.action.VOICE_TRIGGER" />
             </intent-filter>
-            <meta-data
-                    android:name="com.google.android.glass.VoiceTrigger"
-                    android:resource="@xml/find_vox" />
 
+            <meta-data
+                android:name="com.google.android.glass.VoiceTrigger"
+                android:resource="@xml/find_vox" />
+        </activity>
+        <activity
+            android:name="com.stackunderflow.findit.GetDest"
+            android:label="@string/title_activity_get_dest" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.stackunderflow.findit.Find" />
         </activity>
     </application>
 
