@@ -1,5 +1,5 @@
-package src.com.stackunderflow.findit;
-import gen.com.stackunderflow.findit.R;
+package com.stackunderflow.findit;
+import com.stackunderflow.findit.R;
 
 import java.io.IOException;
 import java.util.List;

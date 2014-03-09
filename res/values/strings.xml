@@ -25,4 +25,10 @@
     <string name="launchfailhead">Woops! No location data :(</string>
     <string name="launchfailfoot">Or you've been taking selfies on the moon again..</string>
 
+    <string name="GPSAlertDialogTitle">GPS Alert</string>
+    <string name="GPSAlertDialogMessage">GPS Alert Message</string>
+    <string name="settings">Setting</string>
+    <string name="cancel">Cancel</string>
+
+
 </resources>

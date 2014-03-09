@@ -30,7 +30,7 @@ public class Find extends Activity {
         mCardScrollView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Card selectedCard = mCards.get(mCardScrollView.getSelectedItemPosition());
-                startActivity( procImg.launchNav(selectedCard.getFootnote()+".jpg" , this) );
+                startActivity( procImg.launchNav(selectedCard.getFootnote()+".jpg" , Find.this) );
             }
         });
         ScrollAdapter adapter = new ScrollAdapter();
