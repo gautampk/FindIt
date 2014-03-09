@@ -45,12 +45,6 @@ public class procImg{
         	dir.setData(Uri.parse("google.navigation:q=" + lat + ", " + lng));
             return dir;
         } catch (NullPointerException e){
-        	Card fail = new Card(context);
-        	fail.setText(R.string.launchfailhead);
-        	fail.setFootnote(R.string.launchfailfoot);
-        	fail.setImageLayout(Card.ImageLayout.FULL);
-        	fail.addImage(R.drawable.launchfailbg);
-        	View failView = fail.toView();
         	return null;
         }
     }
